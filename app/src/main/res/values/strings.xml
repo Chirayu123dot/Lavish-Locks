@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Lavish Locks</string>
+
+    <string name="name_edit_text">Full Name</string>
+    <string name="username_edit_text">Username</string>
+    <string name="email_edit_text">Email</string>
+    <string name="phone_edit_text">Phone No</string>
+    <string name="password_edit_text">Password</string>
+
+    <string name="welcome_text">Welcome,</string>
+    <string name="sign_up_message">Sign Up to start your new journey</string>
+
+    <string name="sign_up_button">Sign Up</string>
+    <string name="login_button">Already have an account? Login</string>
+
+    <string name="hello_there_text">Hello There, Welcome Back</string>
+    <string name="welcome_back_text">Welcome Back</string>
+
+    <string name="login_text">Login to continue</string>
+
+    <string name="forgot_password_text">Forgot Password?</string>
+
+    <string name="home_login_button">Login</string>
+
+    <string name="new_user_text">New User? Sign Up</string>
+</resources>
