@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("phoneNo", phoneNoFromDB);
                         intent.putExtra("password", passwordFromDB);
 
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                     else{

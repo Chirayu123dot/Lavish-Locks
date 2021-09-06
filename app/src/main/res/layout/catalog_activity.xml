@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/back_img23"
-            android:layout_marginTop="-75dp" />
+            android:layout_marginTop="-90dp" />
 
         <TextView
             android:id="@+id/welcome"
@@ -25,18 +25,11 @@
             android:text="WELCOME TO"
             android:fontFamily="@font/bungee"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:textSize="20sp"
             android:includeFontPadding="false"
             android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/user_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/welcome"
-        android:text="PROFILE"
-        android:layout_marginStart="150dp"/>
         <TextView
             android:id="@+id/salon_name"
             android:layout_below="@id/welcome"
@@ -72,6 +65,9 @@
             android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:cursorVisible="true"
+                android:textCursorDrawable="@color/white"
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

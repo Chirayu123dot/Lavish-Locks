@@ -68,7 +68,7 @@ public class SignUp extends AppCompatActivity {
 
                     reference.child(mPhoneNo).setValue(user);
 
-                    Intent intent = new Intent(SignUp.this, UserProfile.class);
+                    Intent intent = new Intent(SignUp.this, CatalogActivity.class);
                     intent.putExtra("name", mFullName);
                     intent.putExtra("username", mUsername);
                     intent.putExtra("email", mEmail);
@@ -163,7 +163,12 @@ public class SignUp extends AppCompatActivity {
             return false;
         }
         else if(!val.matches(passwordPattern)){
-            password.setError("Password is too weak");
+            String specialCharacter = "[^\\w\\s]";
+            String letter = "^[a-zA-Z]+$";
+            if(val.length() < 4) password.setError("Password is too weak. Must be minimum 4 characters long");
+            else if(!val.matches(letter)) password.setError("Password is too weak. Must contain a letter");
+            else if(!val.matches(specialCharacter)) password.setError("Password is too weak. Must contain a special character");
+            else password.setError("Password is too weak");
             return false;
         }
         else{
