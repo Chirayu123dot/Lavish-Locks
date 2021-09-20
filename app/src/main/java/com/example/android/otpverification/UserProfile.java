@@ -2,6 +2,7 @@ package com.example.android.otpverification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +12,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
         getSupportActionBar().hide();
+
 
         fullNameField = findViewById(R.id.full_name_edit_text);
         emailField = findViewById(R.id.email_edit_text);
