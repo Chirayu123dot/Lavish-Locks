@@ -78,7 +78,10 @@ public class CatalogActivity extends AppCompatActivity {
                 .setQuery(reference, Service.class)
                 .build();
 
-        adapter = new serviceAdapter(options);
+        String name = getIntent().getStringExtra("name");
+        String phoneNumber = getIntent().getStringExtra("phoneNo");
+
+        adapter = new serviceAdapter(options, name, phoneNumber, this);
 
         recyclerView.setAdapter(adapter);
 
