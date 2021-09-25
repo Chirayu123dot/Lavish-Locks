@@ -13,7 +13,7 @@
     <string name="sign_up_button">Sign Up</string>
     <string name="login_button">Already have an account? Login</string>
 
-    <string name="hello_there_text">Hello There, Welcome Back</string>
+    <string name="hello_there_text"><b>Hello</b> there, <b>Welcome</b> back</string>
     <string name="welcome_back_text">Welcome Back</string>
 
     <string name="login_text">Login to continue</string>
@@ -22,5 +22,12 @@
 
     <string name="home_login_button">Login</string>
 
-    <string name="new_user_text">New User? Sign Up</string>
+    <string name="new_user_text"><u> SIGN UP</u></string>
+
+    <string name="sign_up_activity_login_button_text"><u>LOGIN</u></string>
+
+    <string name="verify_otp_activity_resend_otp_button"><u>RESEND OTP</u></string>
+    <string name="edit_text_phone_hint"><i>Phone Number</i></string>
+
+    <string name="catalog_activity_search_bar_hint_text"><i>Search</i></string>
 </resources>
