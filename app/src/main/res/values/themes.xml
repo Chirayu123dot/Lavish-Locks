@@ -15,7 +15,7 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">#00838f</item>
 <!--        <item name="colorSecondary">#005662</item>-->
         <item name="colorPrimaryDark">#005661</item>
@@ -32,6 +32,19 @@
 
 <!--        <color name="primaryTextColor">#ffffff</color>-->
 
+    </style>
+
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxCornerRadiusTopStart">7dp</item>
+        <item name="boxCornerRadiusBottomStart">7dp</item>
+        <item name="boxCornerRadiusTopEnd">7dp</item>
+        <item name="boxCornerRadiusBottomEnd">7dp</item>
+    </style>
+
+    <style name="EditTextHintStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@font/open_sans_light_italic</item>
     </style>
 
 </resources>
