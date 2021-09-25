@@ -44,9 +44,9 @@ public class serviceAdapter extends FirebaseRecyclerAdapter<Service, serviceAdap
 
         public serviceViewHolder(@NonNull View itemView) {
             super(itemView);
-            serviceName = itemView.findViewById(R.id.service_name);
-            serviceDescription = itemView.findViewById(R.id.service_description);
-            priceRange = itemView.findViewById(R.id.price_range);
+            serviceName = itemView.findViewById(R.id.service_card_service_name);
+            serviceDescription = itemView.findViewById(R.id.service_card_service_description);
+            priceRange = itemView.findViewById(R.id.service_card_price_range);
         }
     }
 }

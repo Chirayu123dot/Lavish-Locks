@@ -3,32 +3,27 @@ package com.example.android.otpverification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CatalogActivity extends AppCompatActivity {
 
-    private RecyclerView serviceRecyclerView;
+    private RecyclerView recyclerView;
     private serviceAdapter adapter;
+    private SearchView searchView;
+    private ImageView backButton;
+    private ImageView userProfileButton;
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -39,11 +34,42 @@ public class CatalogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.catalog_activity);
 
+        searchView = findViewById(R.id.search_view);
+        backButton = findViewById(R.id.user_profile_activity_back_button);
+        userProfileButton = findViewById(R.id.catalog_activity_user_profile_button);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        userProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showUserProfile();
+            }
+        });
+
+//        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+//        searchIcon.setImageDrawable(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.ic_search_icon));
+        EditText searchEditText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+//        searchEditText.setTextColor(getResources().getColor(R.color.white));
+
+        searchView.setQueryHint(Html.fromHtml("<font color=\"#ffffff\">" + "<i>" + "Search" + "</i>" + "</font>"));
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setFocusable(true);
+            }
+        });
+
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Services");
 
-        serviceRecyclerView = findViewById(R.id.services_recycler_view);
-        serviceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.catalog_activity_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // It is a class provide by the FirebaseUI to make a
         // query in the database to fetch appropriate data
@@ -54,10 +80,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         adapter = new serviceAdapter(options);
 
-        serviceRecyclerView.setAdapter(adapter);
-
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"));
-        getSupportActionBar().setElevation(0);
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -77,20 +100,20 @@ public class CatalogActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.catalog_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.user_profile) {
-            showUserProfile();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.catalog_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == R.id.user_profile) {
+//            showUserProfile();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void showUserProfile(){
         Intent intent = new Intent(CatalogActivity.this, UserProfile.class);

@@ -3,13 +3,13 @@ package com.example.android.otpverification;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -22,10 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button signupButton;
-    Button loginButton;
-    TextInputLayout username;
+    TextView signupButton;
+    TextView loginButton;
+    TextInputLayout phoneNumber;
     TextInputLayout password;
+    TextInputEditText phoneNumberEditText;
+    TextInputEditText passwordEditText;
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -35,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"));
+//        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"));
 
-        signupButton = findViewById(R.id.sign_up);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login);
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        signupButton = findViewById(R.id.login_activity_signup_button);
+        phoneNumber = findViewById(R.id.login_activity_phone_no_text_input_layout);
+        password = findViewById(R.id.login_activity_password_text_input_layout);
+        loginButton = findViewById(R.id.login_activity_login_button);
+        phoneNumberEditText = findViewById(R.id.login_activity_phone_no_edit_text);
+        passwordEditText = findViewById(R.id.login_activity_password_edit_text);
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");
@@ -59,23 +65,75 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SignUp.class);
-                Intent intent1 = new Intent(MainActivity.this, UserProfile.class);
                 startActivity(intent);
             }
         });
+
+          designEditTextFields();
+
     }
 
+    void designEditTextFields(){
+        phoneNumber.setHint(Html.fromHtml("<font color=\"#BDBDBD\">" + "<i>" + "Phone Number" + "</i>" + "</font>"));
+
+        phoneNumberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    phoneNumber.setEndIconVisible(true);
+                    phoneNumber.setHint(" ");
+                    phoneNumber.setHint("Phone Number");
+                }
+                else{
+                    phoneNumber.setEndIconVisible(false);
+                    if(TextUtils.isEmpty(phoneNumber.getEditText().getText().toString().trim())){
+                        phoneNumber.setHint(" ");
+                        phoneNumber.setHint(Html.fromHtml("<font color=\"#BDBDBD\">" + "<i>" + "Phone Number" + "</i>" + "</font>"));
+                    }else {
+                        phoneNumber.setHint(" ");
+//                          phoneNumber.setHint(Html.fromHtml("<font color=\"#BDBDBD\">" + "Phone Number" + "</font>"));
+                        phoneNumber.setHint("Phone Number");
+                    }
+                }
+            }
+        });
+
+        password.setHint(Html.fromHtml("<font color=\"#BDBDBD\">" + "<i>" + "Password" + "</i>" + "</font>"));
+        password.setEndIconVisible(false);
+
+        passwordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    password.setEndIconVisible(true);
+                    password.setHint(" ");
+                    password.setHint("Password");
+                }
+                else{
+                    password.setEndIconVisible(false);
+                    if(TextUtils.isEmpty(password.getEditText().getText().toString().trim())){
+                        password.setHint(" ");
+                        password.setHint(Html.fromHtml("<font color=\"#BDBDBD\">" + "<i>" + "Password" + "</i>" + "</font>"));
+                    }else {
+                        password.setHint(" ");
+                        password.setHint("Password");
+                    }
+                }
+            }
+        });
+
+    }
     boolean validateUsername(){
 
-        String val = username.getEditText().getText().toString().trim();
+        String val = phoneNumber.getEditText().getText().toString().trim();
 
         if(val.isEmpty()){
-            username.setError("Field cannot be empty");
+            phoneNumber.setError("Field cannot be empty");
             return false;
         }
         else{
-            username.setError(null);
-            username.setErrorEnabled(false);
+            phoneNumber.setError(null);
+            phoneNumber.setErrorEnabled(false);
             return true;
         }
     }
@@ -96,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void doesUserExist(){
-        String inputPhoneNo = username.getEditText().getText().toString().trim();
+        String inputPhoneNo = phoneNumber.getEditText().getText().toString().trim();
         String inputPassword = password.getEditText().getText().toString().trim();
 
 
@@ -108,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(snapshot.exists()){
 
-                    username.setError(null);
-                    username.setErrorEnabled(false);
+                    phoneNumber.setError(null);
+                    phoneNumber.setErrorEnabled(false);
 
                     String passwordFromDB = snapshot.child(inputPhoneNo).child("password").getValue(String.class);
 
@@ -140,8 +198,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    username.setError("No such user exists");
-                    username.requestFocus();
+                    phoneNumber.setError("No such user exists");
+                    phoneNumber.requestFocus();
                 }
             }
 
