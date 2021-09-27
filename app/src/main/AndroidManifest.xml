@@ -11,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreenActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -24,37 +25,37 @@
         <activity
             android:name=".SignUp"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".LoginActivity" >
         </activity>
 
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".SplashScreenActivity" >
         </activity>
 
         <activity
             android:name=".UserProfile"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".CatalogActivity" >
         </activity>
 
         <activity
             android:name=".CatalogActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".LoginActivity" >
         </activity>
 
         <activity
             android:name=".VerifyOTP"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".SignUp" >
         </activity>
 
         <activity
             android:name=".AppointmentBooking"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" >
+            android:theme="@style/AppTheme">
+<!--            android:parentActivityName=".MainActivity" -->>
         </activity>
 
         <meta-data
