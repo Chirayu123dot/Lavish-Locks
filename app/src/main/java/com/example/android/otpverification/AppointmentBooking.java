@@ -171,5 +171,6 @@ public class AppointmentBooking extends AppCompatActivity {
         }
 
         return hour + " : " + min + " " + format;
+
     }
 }

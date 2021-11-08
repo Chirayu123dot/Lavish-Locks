@@ -170,5 +170,4 @@
             app:srcCompat="@drawable/ic_back_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
