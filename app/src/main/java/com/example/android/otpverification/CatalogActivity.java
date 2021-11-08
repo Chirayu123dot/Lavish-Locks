@@ -103,21 +103,6 @@ public class CatalogActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.catalog_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if (item.getItemId() == R.id.user_profile) {
-//            showUserProfile();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
     private void showUserProfile(){
         Intent intent = new Intent(CatalogActivity.this, UserProfile.class);
 
