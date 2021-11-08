@@ -43,9 +43,6 @@
         <item name="boxCornerRadiusBottomEnd">7dp</item>
     </style>
 
-    <style name="EditTextHintStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="hintTextAppearance">@font/open_sans_light_italic</item>
-    </style>
 
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_background</item>
