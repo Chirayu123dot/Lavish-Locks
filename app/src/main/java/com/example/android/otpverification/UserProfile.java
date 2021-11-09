@@ -2,6 +2,7 @@ package com.example.android.otpverification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -18,6 +20,8 @@ public class UserProfile extends AppCompatActivity {
     TextView nameField;
     ImageView backButton;
     FloatingActionButton editButton;
+    ImageView logOutButton;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +35,9 @@ public class UserProfile extends AppCompatActivity {
         passwordField = findViewById(R.id.user_profile_activity_password_field);
         backButton = findViewById(R.id.user_profile_activity_back_button);
 //        editButton = findViewById(R.id.edit_button);
+        logOutButton = findViewById(R.id.user_profile_activity_logout_button);
+
+        userLocalStore = new UserLocalStore(this);
 
         emailField.setEnabled(false);
         phoneNumberField.setEnabled(false);
@@ -49,6 +56,17 @@ public class UserProfile extends AppCompatActivity {
 //                newFragment.show(getSupportFragmentManager(), "missiles");
 //            }
 //        });
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(UserProfile.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                userLocalStore.clearUserData();
+                startActivity(intent);
+            }
+        });
 
         showUserData();
     }
