@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="edit_text_outline">#008491</color>
+    <color name="search_button_background_colour">#00B6C3</color>
 </resources>

@@ -54,17 +54,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
+        <EditText
             android:id="@+id/search_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="23dp"
+            android:layout_marginEnd="100dp"
             android:layout_marginBottom="61dp"
             android:background="@drawable/search_bar_background_box"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/open_sans_light_italic"
+            android:hint="Search"
+            android:iconifiedByDefault="false"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView10"
@@ -87,5 +96,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_user_profile_white" />
+
+        <ImageView
+            android:id="@+id/catalog_activity_search_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@+id/search_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/search_view"
+            app:layout_constraintTop_toTopOf="@+id/search_view"
+            android:background="@drawable/search_button_background"
+            app:srcCompat="@drawable/ic_search" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

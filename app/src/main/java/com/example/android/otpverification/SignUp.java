@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class SignUp extends AppCompatActivity {
     Button signupButton;
     TextView loginButton;
     ImageView backButton;
+    ProgressBar progressBar;
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -72,6 +74,9 @@ public class SignUp extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.signup_activity_phone_no_edit_text);
         passwordEditText = findViewById(R.id.signup_activity_password_edit_text);
         backButton = findViewById(R.id.user_profile_activity_back_button);
+        progressBar = findViewById(R.id.signup_activity_progressBar);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");
@@ -94,14 +99,17 @@ public class SignUp extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateName()  & validateEmail() & validatePhoneNo() & validatePassword()){
+
+                if(validateName()  & validateEmail() & validatePhoneNo() & validatePassword2()){
                     String mFullName = fullName.getEditText().getText().toString().trim();
-//                    String mUsername = username.getEditText().getText().toString().trim();
                     String mEmail = email.getEditText().getText().toString().trim();
                     String mPhoneNo = phoneNumber.getEditText().getText().toString().trim();
                     String mPassword = password.getEditText().getText().toString().trim();
 
+                    signupButton.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
 
+                    Log.v("SignUp", "HELOOOO!!! sIGN UP");
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             "+91" + mPhoneNo,
                             60,
@@ -120,7 +128,6 @@ public class SignUp extends AppCompatActivity {
 
                                 @Override
                                 public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                    Toast.makeText(SignUp.this, "OnCodeSent!!!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
                                     intent.putExtra("name", mFullName);
                                     intent.putExtra("username", "no username");
@@ -253,25 +260,6 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-//    boolean validateUsername(){
-//
-//        String val = username.getEditText().getText().toString().trim();
-//
-//        if(val.isEmpty()){
-//            username.setError("Field cannot be empty");
-//            return false;
-//        }
-//        else if(val.length() >= 15){
-//            username.setError("Username too long");
-//            return false;
-//        }
-//        else{
-//            username.setError(null);
-//            username.setErrorEnabled(false);
-//            return true;
-//        }
-//    }
-
     boolean validateEmail(){
         String val = email.getEditText().getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -304,31 +292,52 @@ public class SignUp extends AppCompatActivity {
             return true;
         }
     }
+//
+//    boolean validatePassword(){
+//
+//        String val = password.getEditText().getText().toString().trim();
+//        String passwordPattern = "^" +
+//                //"(?=.*[0-9])" +         //at least 1 digit
+//                //"(?=.*[a-z])" +         //at least 1 lower case letter
+//                //"(?=.*[A-Z])" +         //at least 1 upper case letter
+//                "(?=.*[a-zA-Z])" +      //any letter
+//                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+//                "(?=\\S+$)" +           //no white spaces
+//                ".{4,}" +               //at least 4 characters
+//                "$";
+//
+//        if(val.isEmpty()){
+//            password.setError("Field cannot be empty");
+//            return false;
+//        }
+//        else if(!val.matches(passwordPattern)){
+//            String specialCharacter = "[^\\w\\s]";
+//            String letter = "^[a-zA-Z]+$";
+//            if(val.length() < 4) password.setError("Password is too weak. Must be minimum 4 characters long");
+//            else if(!val.matches(letter)) password.setError("Password is too weak. Must contain a letter");
+//            else if(!val.matches(specialCharacter)) password.setError("Password is too weak. Must contain a special character");
+//            else password.setError("Password is too weak");
+//            return false;
+//        }
+//        else{
+//            password.setError(null);
+//            password.setErrorEnabled(false);
+//            return true;
+//        }
+//    }
 
-    boolean validatePassword(){
-
+    boolean validatePassword2(){
         String val = password.getEditText().getText().toString().trim();
-        String passwordPattern = "^" +
-                //"(?=.*[0-9])" +         //at least 1 digit
-                //"(?=.*[a-z])" +         //at least 1 lower case letter
-                //"(?=.*[A-Z])" +         //at least 1 upper case letter
-                "(?=.*[a-zA-Z])" +      //any letter
-                "(?=.*[@#$%^&+=])" +    //at least 1 special character
-                "(?=\\S+$)" +           //no white spaces
-                ".{4,}" +               //at least 4 characters
-                "$";
+
+//        String specialCharacterRegex = "(?=.*[^A-Za-z0-9])";
+//        String alphabetRegex = "(?=.*[a-z])";
 
         if(val.isEmpty()){
             password.setError("Field cannot be empty");
             return false;
         }
-        else if(!val.matches(passwordPattern)){
-            String specialCharacter = "[^\\w\\s]";
-            String letter = "^[a-zA-Z]+$";
-            if(val.length() < 4) password.setError("Password is too weak. Must be minimum 4 characters long");
-            else if(!val.matches(letter)) password.setError("Password is too weak. Must contain a letter");
-            else if(!val.matches(specialCharacter)) password.setError("Password is too weak. Must contain a special character");
-            else password.setError("Password is too weak");
+        else if(val.length() < 6){
+            password.setError("Password is too weak. Must be minimum 6 characters long");
             return false;
         }
         else{

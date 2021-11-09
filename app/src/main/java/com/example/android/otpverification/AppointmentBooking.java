@@ -109,16 +109,20 @@ public class AppointmentBooking extends AppCompatActivity {
                 String timeSelected = getTime(hour, min);
                 String appointmentTime = daySelected + dateSelected + " of " + monthSelected + " (" + timeSelected + ")";
 
-                Appointment newAppointment = new Appointment(getIntent().getStringExtra("userName"),
-                        getIntent().getStringExtra("userPhoneNumber"),
-                        appointmentTime);
+                if(daySelected == null){
+                    Toast.makeText(AppointmentBooking.this, "Please select a day", Toast.LENGTH_SHORT).show();
+                } else {
+                    Appointment newAppointment = new Appointment(getIntent().getStringExtra("userName"),
+                            getIntent().getStringExtra("userPhoneNumber"),
+                            appointmentTime);
 
-                reference.child(getIntent().getStringExtra("serviceName"))
-                        .child(getIntent().getStringExtra("userPhoneNumber"))
-                        .setValue(newAppointment);
+                    reference.child(getIntent().getStringExtra("serviceName"))
+                            .child(getIntent().getStringExtra("userPhoneNumber"))
+                            .setValue(newAppointment);
 
-                Toast.makeText(AppointmentBooking.this, "Booking Created", Toast.LENGTH_SHORT).show();
-                finish();
+                    Toast.makeText(AppointmentBooking.this, "Booking Created", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
 
