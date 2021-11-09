@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
+    UserLocalStore userLocalStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         designEditTextFields();
+
+
+        userLocalStore = new UserLocalStore(this);
 
     }
 
@@ -171,7 +176,6 @@ public class LoginActivity extends AppCompatActivity {
                     String passwordFromDB = snapshot.child(inputPhoneNo).child("password").getValue(String.class);
 
                     if(passwordFromDB.equals(inputPassword)){
-
                         password.setError(null);
                         password.setErrorEnabled(false);
 
@@ -179,6 +183,17 @@ public class LoginActivity extends AppCompatActivity {
                         String usernameFromDB = snapshot.child(inputPhoneNo).child("username").getValue(String.class);
                         String emailFromDB = snapshot.child(inputPhoneNo).child("email").getValue(String.class);
                         String phoneNoFromDB = snapshot.child(inputPhoneNo).child("phoneNo").getValue(String.class);
+
+                        userLocalStore.storeUserData(
+                                new UserHelperClass(
+                                        nameFromDB,
+                                        usernameFromDB,
+                                        emailFromDB,
+                                        phoneNoFromDB,
+                                        passwordFromDB
+                                        )
+                        );
+                        userLocalStore.setUserLoggedIn(true);
 
                         Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 
@@ -207,5 +222,29 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(isUserLoggedIn()){
+            Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+
+            UserHelperClass userLoggedIn = userLocalStore.getLoggedInUser();
+
+            intent.putExtra("name", userLoggedIn.getFullName());
+            intent.putExtra("username", userLoggedIn.getUsername());
+            intent.putExtra("email", userLoggedIn.getEmail());
+            intent.putExtra("phoneNo", userLoggedIn.getPhoneNo());
+            intent.putExtra("password", userLoggedIn.getPassword());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
+    private boolean isUserLoggedIn(){
+        return userLocalStore.getUserLoggedIn();
     }
 }
